@@ -8,14 +8,14 @@ const SignupForm = () => {
   // set initial form state
   const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
   // set state for form validation
-  const [validated, setValidated] = useState(true);
+  const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
  // Use the useMutation hook to execute the ADD_USER mutation
-  const [addUser] = useMutation(ADD_USER);
+  const [addUser, { error, data}] = useMutation(ADD_USER);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -30,26 +30,25 @@ const SignupForm = () => {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-      setValidated(false);
-      return;
+     
     }
 
     try {
-      const {data} = await addUser({ variables: {...userFormData } });
+      const { data } = await addUser({ variables: {...userFormData } });
 
-      if (!data.addUser.ok) {
-        throw new Error('something went wrong!');
-      }
+      // if (!data.addUser.ok) {
+      //   throw new Error('something went wrong!');
+      // }
 
-      const { token, user } = data.addUser;
-      console.log(user);
-      Auth.login(token);
-      setValidated(false);
-      setError(null);
+      // const { token, user } = data.addUser;
+      // console.log(user);
+      Auth.login(data.addUser.token);
+      // setValidated(false);
+      // setError(null);
     } catch (err) {
       console.error(err);
       setShowAlert(true);
-      setError(err.message);
+      // setError(err.message);
     }
 
     setUserFormData({

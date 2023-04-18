@@ -12,7 +12,6 @@ export const ADD_USER = gql`
         }
       }
     }
-  }
 `;
 
 export const LOGIN_USER = gql`
@@ -27,7 +26,6 @@ export const LOGIN_USER = gql`
         }
       }
     }
-  }
 `;
 
 export const SAVE_BOOK = gql`
@@ -41,7 +39,6 @@ export const SAVE_BOOK = gql`
         description
         bookId
         image
-        link
       }
     }
   }
@@ -52,12 +49,7 @@ export const REMOVE_BOOK = gql`
     removeBook(bookId: $bookId) {
       _id
       savedBooks {
-        title
-        authors
-        description
         bookId
-        image
-        link
       }
     }
   }
