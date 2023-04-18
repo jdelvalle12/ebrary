@@ -8,7 +8,7 @@ const SignupForm = () => {
   // set initial form state
   const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
   // set state for form validation
-  const [validated] = useState(false);
+  const [validated, setValidated] = useState(true);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
@@ -30,6 +30,8 @@ const SignupForm = () => {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+      setValidated(false);
+      return;
     }
 
     try {
@@ -42,7 +44,7 @@ const SignupForm = () => {
       const { token, user } = data.addUser;
       console.log(user);
       Auth.login(token);
-      detValidated(false);
+      setValidated(false);
       setError(null);
     } catch (err) {
       console.error(err);
@@ -57,6 +59,7 @@ const SignupForm = () => {
     });
   };
 
+  
   return (
     <>
       {/* This is needed for the validation functionality above */}
@@ -65,6 +68,7 @@ const SignupForm = () => {
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your signup!
         </Alert>
+        {error && <Alert variant='danger'>{error}</Alert>}
 
         <Form.Group className='mb-3'>
           <Form.Label htmlFor='username'>Username</Form.Label>
