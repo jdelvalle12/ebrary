@@ -15,7 +15,7 @@ const SignupForm = () => {
   // const [error, setError] = useState(null);
 
  // Use the useMutation hook to execute the ADD_USER mutation
-  const [addUser, { error, data}] = useMutation(ADD_USER);
+  const [addUser] = useMutation(ADD_USER);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -36,9 +36,9 @@ const SignupForm = () => {
     try {
       const { data } = await addUser({ variables: {...userFormData } });
 
-      // if (!data.addUser.ok) {
-      //   throw new Error('something went wrong!');
-      // }
+      if (!data.addUser.ok) {
+        throw new Error('something went wrong!');
+      }
 
       // const { token, user } = data.addUser;
       // console.log(user);
@@ -67,7 +67,7 @@ const SignupForm = () => {
         <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your signup!
         </Alert>
-        {error && <Alert variant='danger'>{error}</Alert>}
+        {/* {error && <Alert variant='danger'>{error}</Alert>} */}
 
         <Form.Group className='mb-3'>
           <Form.Label htmlFor='username'>Username</Form.Label>

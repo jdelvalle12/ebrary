@@ -7,7 +7,7 @@ import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 
 const httpLink = createHttpLink({
-  uri: 'http://your-apollo-server-url/graphql', // replace with your Apollo server URL
+  uri: 'http://localhost:3000', // replace with your Apollo server URL
 });
 
 const authLink = setContext((_, { headers }) => {
