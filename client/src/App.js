@@ -7,12 +7,12 @@ import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3000', // replace with your Apollo server URL
+  uri: '/graphql', // replace with your Apollo server URL
 });
 
 const authLink = setContext((_, { headers }) => {
   // Get the authentication token from wherever you have it stored (e.g. local storage, context, etc.)
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('id_token');
 
   return {
     headers: {
